@@ -57,7 +57,7 @@ def merge(intervals: list[Interval]) -> list[Interval]:
 
     for start, end in ordered[1:]:
         last_start, last_end = result[-1]
-        if start < last_end:  # 相交 → 并入当前簇
+        if start <= last_end:  # 相接或相交 → 并入当前簇
             result[-1] = (last_start, max(last_end, end))
         else:
             result.append((start, end))

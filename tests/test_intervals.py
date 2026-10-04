@@ -59,3 +59,20 @@ def test_merge_does_not_mutate_input():
     data = [(1, 3), (2, 5)]
     merge(data)
     assert data == [(1, 3), (2, 5)]
+
+
+def test_merge_touching_endpoints():
+    # 闭区间语义：端点相接视为相交，必须合并
+    assert merge([(1, 3), (3, 5)]) == [(1, 5)]
+
+
+def test_merge_chain_of_touching():
+    assert merge([(3, 5), (5, 7), (1, 3)]) == [(1, 7)]
+
+
+def test_merge_touching_does_not_swallow_gap():
+    assert merge([(1, 3), (6, 8)]) == [(1, 3), (6, 8)]
+
+
+def test_merge_touching_same_start():
+    assert merge([(4, 6), (4, 5)]) == [(4, 6)]

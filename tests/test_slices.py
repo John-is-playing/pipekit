@@ -53,3 +53,27 @@ def test_slice_tail_more_than_length():
 def test_slice_tail_rejects_negative():
     with pytest.raises(ValueError):
         slice_tail([1, 2], -1)
+
+
+# --- 以下为 Issue #7 修复的回归测试 (2026-10-04) ---
+
+
+def test_slice_tail_zero_returns_empty():
+    """n=0 时应返回空列表，而非整个列表（Issue #7）。"""
+    assert slice_tail([1, 2], 0) == []
+
+
+def test_slice_tail_zero_on_empty():
+    """空列表 + n=0 也应返回空列表（Issue #7）。"""
+    assert slice_tail([], 0) == []
+
+
+def test_merge_adjacent_touching():
+    """半开区间端点相接应合并（同类修复）。"""
+    assert merge_adjacent([(1, 4), (4, 6)]) == [(1, 6)]
+
+
+def test_merge_adjacent_touching_chain():
+    """多个首尾相接的半开区间应合并为一个。"""
+    assert merge_adjacent([(1, 3), (3, 5), (5, 8)]) == [(1, 8)]
+#***

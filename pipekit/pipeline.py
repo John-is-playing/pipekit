@@ -69,6 +69,6 @@ def coverage(slices: list[Slice]) -> int:
         return 0
 
     covered = 0
-    for start, end in slices:
+    for start, end in intervals.merge(list(slices)):
         covered += end - start + 1
     return covered

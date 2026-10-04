@@ -61,3 +61,15 @@ def test_coverage_empty():
 
 def test_coverage_of_plan():
     assert coverage(plan(10, 5)) == 10
+
+
+def test_coverage_overlapping_counts_once():
+    assert coverage([(0, 4), (2, 6)]) == 7
+
+
+def test_coverage_duplicate_slice_counts_once():
+    assert coverage([(0, 4), (0, 4)]) == 5
+
+
+def test_coverage_touching_slices():
+    assert coverage([(0, 3), (4, 9)]) == 10

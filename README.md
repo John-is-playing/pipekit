@@ -62,6 +62,19 @@ slices.merge_adjacent ─► (与 intervals 同口径的闭区间语义)
 | `stats.count_batches(slices, ranges)` | 剔除 ranges 后剩余分片数 |
 | `stats.batch_bounds(slices, ranges)` | 剔除后分片的起止范围 |
 
+## 树形分组
+
+现在支持把一段区间按层级拆成树形结构，方便做分层采样：
+
+```python
+from pipekit import build_tree
+
+build_tree(0, 99, [10, 3])
+```
+
+按 `widths` 逐层切分，末层不超过 `end`。这是本次新增的能力，详见
+`pipekit/tree.py`（已随本次变更提供）。
+
 ## 本地自检
 
 ```bash

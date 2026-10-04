@@ -59,3 +59,22 @@ def test_merge_does_not_mutate_input():
     data = [(1, 3), (2, 5)]
     merge(data)
     assert data == [(1, 3), (2, 5)]
+
+
+# --- 以下为 Issue #1 修复的回归测试 (2026-10-04) ---
+
+
+def test_merge_touching_endpoints():
+    """端点相接的闭区间应合并为一个区间（Issue #1）。"""
+    assert merge([(1, 3), (3, 5)]) == [(1, 5)]
+
+
+def test_merge_touching_chain():
+    """多个首尾相接的闭区间应合并为一个（Issue #1）。"""
+    assert merge([(1, 3), (3, 5), (5, 8)]) == [(1, 8)]
+
+
+def test_merge_touching_unordered():
+    """乱序输入时端点相接的闭区间也应合并（Issue #1）。"""
+    assert merge([(5, 9), (1, 3), (3, 5)]) == [(1, 9)]
+#***

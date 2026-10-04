@@ -35,4 +35,4 @@ def batch_bounds(slices: list[Slice], ranges: list[Slice]) -> tuple[int, int] | 
     remaining = pipeline.drop_ranges(slices, ranges)
     if not remaining:
         return None
-    return (min(s[0] for s in remaining), max(s[1] for s in remaining))
+    return (remaining[0][0], remaining[-1][1])

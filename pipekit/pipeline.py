@@ -52,7 +52,11 @@ def drop_ranges(slices: list[Slice], ranges: list[Slice]) -> list[Slice]:
         >>> drop_ranges([(0, 4), (5, 9)], [(6, 8)])
         [(0, 4), (5, 9)]
     """
-    return [s for s in slices if not filterops.in_ranges(s[1], ranges)]
+    return [
+        s
+        for s in slices
+        if not any(r_start <= s[0] <= r_end for r_start, r_end in ranges)
+    ]
 
 
 def coverage(slices: list[Slice]) -> int:

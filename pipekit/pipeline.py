@@ -35,7 +35,7 @@ def plan(total: int, size: int) -> list[Slice]:
     slices: list[Slice] = []
     start = 0
     while start < total:
-        end = min(start + size - 1, total)
+        end = min(start + size - 1, total - 1)
         slices.append((start, end))
         start = end + 1
     return slices

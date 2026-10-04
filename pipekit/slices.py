@@ -40,7 +40,7 @@ def merge_adjacent(slices: list[Slice]) -> list[Slice]:
 
     for start, end in ordered[1:]:
         last_start, last_end = result[-1]
-        if start < last_end:  # 重叠 → 并入
+        if start <= last_end:  # 重叠或相邻 → 并入
             result[-1] = (last_start, max(last_end, end))
         else:
             result.append((start, end))
@@ -63,4 +63,4 @@ def slice_tail(items: list, n: int) -> list:
     """
     if n < 0:
         raise ValueError("n 不能为负数")
-    return items[-n:]
+    return items[-(n + 1):]
